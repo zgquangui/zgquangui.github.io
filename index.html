@@ -1,1 +1,63 @@
-<h1>我的博客上线啦！</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>给帆帆的告白</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .love-text {
+            position: absolute;
+            font-size: 5vw;
+            color: #ff66b3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            animation: float 15s linear infinite;
+        }
+        
+        .heart {
+            position: absolute;
+            animation: float 20s linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes float {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 创建多个"我最爱帆帆了"文字
+        const texts = ["我最爱帆帆了", "帆帆最可爱", "帆帆是我的唯一"];
+        for (let i = 0; i < 15; i++) {
+            const text = document.createElement("div");
+            text.className = "love-text";
+            text.textContent = texts[i % texts.length];
+            text.style.top = Math.random() * 80 + 10 + 'vh';
+            text.style.left = Math.random() * 100 + 'vw';
+            text.style.fontSize = (Math.random() * 3 + 2) + 'vw';
+            text.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            text.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(text);
+        }
+
+        // 创建心形图片
+        for (let i = 0; i < 10; i++) {
+            const heart = document.createElement("img");
+            heart.className = "heart";
+            heart.src = "heart.png";
+            heart.style.width = (Math.random() * 50 + 30) + 'px';
+            heart.style.top = Math.random() * 80 + 10 + 'vh';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 15 + 15) + 's';
+            heart.style.animationDelay = Math.random() * 10 + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
