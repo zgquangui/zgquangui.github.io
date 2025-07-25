@@ -1,0 +1,8 @@
+baseURL = "https://aquapuff.xyz/"
+languageCode = "zh-cn"
+title = "AquaPuff的魔法水族馆"
+theme = "ananke"
+
+[params]
+  favicon = "🐋"
+  description = "欢迎来到我的泡泡博客~"
