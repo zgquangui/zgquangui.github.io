@@ -1,63 +1,297 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>给帆帆的告白</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            background-color: #ffe6f2;
+            background: linear-gradient(135deg, #ffcce6, #ffb3d9, #ff99cc, #ff80bf);
             overflow: hidden;
-            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            position: relative;
+            font-family: 'ZCOOL XiaoWei', serif;
+            color: #d6004e;
         }
         
-        .love-text {
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Ma Shan Zheng', cursive;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            color: #b30047;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        .message-box {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(179, 0, 71, 0.3);
+            position: relative;
+            z-index: 20;
+            backdrop-filter: blur(5px);
+        }
+        
+        .message {
+            font-size: 1.8rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+        }
+        
+        .signature {
+            font-size: 2.2rem;
+            font-family: 'Ma Shan Zheng', cursive;
+            color: #e6005c;
+            margin-top: 1rem;
+        }
+        
+        /* 漂浮元素样式 */
+        .floating-element {
             position: absolute;
-            font-size: 5vw;
-            color: #ff66b3;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 2rem;
             white-space: nowrap;
-            animation: float 15s linear infinite;
+            opacity: 0.9;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            animation-duration: 20s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
         }
         
-        .heart {
-            position: absolute;
-            animation: float 20s linear infinite;
-            opacity: 0.8;
+        .floating-text {
+            font-weight: bold;
+            font-size: 2.2rem;
+            font-family: 'Ma Shan Zheng', cursive;
         }
         
-        @keyframes float {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
+        .heart-icon {
+            font-size: 3rem;
+            animation: heartbeat 1.2s infinite;
+        }
+        
+        /* 动画定义 */
+        @keyframes float-left-right {
+            0% { transform: translateX(-120%) rotate(0deg); }
+            100% { transform: translateX(120vw) rotate(360deg); }
+        }
+        
+        @keyframes float-right-left {
+            0% { transform: translateX(120%) rotate(0deg); }
+            100% { transform: translateX(-120vw) rotate(-360deg); }
+        }
+        
+        @keyframes float-center-out {
+            0% { 
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(var(--tx), var(--ty)) scale(0.2);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); }
+            100% { transform: scale(1.05); text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .center-out {
+            animation: float-center-out 12s forwards;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            .message {
+                font-size: 1.4rem;
+            }
+            .floating-element {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1 class="title">❤️ 给帆帆的告白 ❤️</h1>
+        
+        <div class="message-box">
+            <p class="message">亲爱的帆帆，遇见你是我生命中最美好的奇迹</p>
+            <p class="message">你的笑容是我每天最期待的画面</p>
+            <p class="message">和你在一起的每一刻，都让我感到无比幸福</p>
+            <p class="message">我想陪你走过每一个春夏秋冬</p>
+            <p class="message">永远爱你，永远珍惜你</p>
+            <p class="signature">—— 永远爱你的我 ❤️</p>
+        </div>
+    </div>
+    
+    <!-- 漂浮元素将由JavaScript生成 -->
+    
     <script>
-        // 创建多个"我最爱帆帆了"文字
-        const texts = ["我最爱帆帆了", "帆帆最可爱", "帆帆是我的唯一"];
-        for (let i = 0; i < 15; i++) {
-            const text = document.createElement("div");
-            text.className = "love-text";
-            text.textContent = texts[i % texts.length];
-            text.style.top = Math.random() * 80 + 10 + 'vh';
-            text.style.left = Math.random() * 100 + 'vw';
-            text.style.fontSize = (Math.random() * 3 + 2) + 'vw';
-            text.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            text.style.animationDelay = Math.random() * 5 + 's';
-            document.body.appendChild(text);
+        // 心形符号
+        const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '❣️', '🩷', '🩵', '🩶'];
+        
+        // 表白话语
+        const messages = [
+            "我最爱帆帆了", 
+            "帆帆最可爱", 
+            "帆帆是我的唯一",
+            "帆帆是我的全世界",
+            "帆帆的笑容照亮我的人生",
+            "每一天都想见到帆帆",
+            "帆帆让我成为更好的人",
+            "我会永远守护帆帆",
+            "帆帆是我生命的意义",
+            "爱你胜过千言万语",
+            "你是我心中的永恒",
+            "愿与你携手共度余生",
+            "你的眼睛像星辰般美丽",
+            "你的声音是我最美的旋律",
+            "与你在一起的每一秒都珍贵"
+        ];
+        
+        // 字体列表
+        const fonts = [
+            "'Ma Shan Zheng', cursive",
+            "'ZCOOL XiaoWei', serif",
+            "'ZCOOL QingKe HuangYou', sans-serif",
+            "Arial, sans-serif",
+            "'Times New Roman', serif"
+        ];
+        
+        // 生成漂浮元素
+        function createFloatingElements() {
+            const container = document.body;
+            
+            // 创建从两边向中间的漂浮元素
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const element = document.createElement('div');
+                    element.classList.add('floating-element');
+                    
+                    // 随机选择是文字还是心形
+                    if (Math.random() > 0.4) {
+                        element.classList.add('floating-text');
+                        element.textContent = messages[Math.floor(Math.random() * messages.length)];
+                        element.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+                        element.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                    } else {
+                        element.classList.add('heart-icon');
+                        element.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    }
+                    
+                    // 随机颜色
+                    const hue = Math.floor(Math.random() * 360);
+                    element.style.color = `hsl(${hue}, 80%, 60%)`;
+                    
+                    // 随机位置
+                    element.style.top = Math.random() * 100 + 'vh';
+                    
+                    // 随机选择动画方向
+                    if (Math.random() > 0.5) {
+                        element.style.left = '-10%';
+                        element.style.animationName = 'float-left-right';
+                    } else {
+                        element.style.left = '110%';
+                        element.style.animationName = 'float-right-left';
+                    }
+                    
+                    // 随机动画时间
+                    element.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                    element.style.animationDelay = (Math.random() * 5) + 's';
+                    
+                    // 随机旋转角度
+                    element.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    
+                    container.appendChild(element);
+                }, i * 300);
+            }
+            
+            // 创建从中心向四周扩散的元素
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const element = document.createElement('div');
+                    element.classList.add('floating-element', 'center-out');
+                    
+                    if (Math.random() > 0.5) {
+                        element.classList.add('floating-text');
+                        element.textContent = messages[Math.floor(Math.random() * messages.length)];
+                        element.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+                        element.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                    } else {
+                        element.classList.add('heart-icon');
+                        element.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    }
+                    
+                    // 随机颜色
+                    const hue = Math.floor(Math.random() * 360);
+                    element.style.color = `hsl(${hue}, 80%, 60%)`;
+                    
+                    // 居中位置
+                    element.style.top = '50vh';
+                    element.style.left = '50vw';
+                    
+                    // 随机目标位置
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 100 + Math.random() * 50;
+                    const tx = Math.cos(angle) * distance + 'vw';
+                    const ty = Math.sin(angle) * distance + 'vh';
+                    
+                    element.style.setProperty('--tx', tx);
+                    element.style.setProperty('--ty', ty);
+                    
+                    // 随机动画时间
+                    element.style.animationDuration = (8 + Math.random() * 8) + 's';
+                    element.style.animationDelay = (Math.random() * 3) + 's';
+                    
+                    container.appendChild(element);
+                }, i * 400);
+            }
         }
-
-        // 创建心形图片
-        for (let i = 0; i < 10; i++) {
-            const heart = document.createElement("img");
-            heart.className = "heart";
-            heart.src = "heart.png";
-            heart.style.width = (Math.random() * 50 + 30) + 'px';
-            heart.style.top = Math.random() * 80 + 10 + 'vh';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 15 + 15) + 's';
-            heart.style.animationDelay = Math.random() * 10 + 's';
-            document.body.appendChild(heart);
-        }
+        
+        // 页面加载完成后创建漂浮元素
+        window.addEventListener('DOMContentLoaded', createFloatingElements);
     </script>
 </body>
 </html>
