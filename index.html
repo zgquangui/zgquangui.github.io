@@ -1,420 +1,63 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>帆帆专属告白</title>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <title>给帆帆的告白</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            background: linear-gradient(135deg, #ffcce6, #ffb3d9, #ff99cc, #ff80bf);
+            background-color: #ffe6f2;
             overflow: hidden;
-            min-height: 100vh;
-            position: relative;
-            font-family: 'ZCOOL QingKe HuangYou', sans-serif;
-            color: #d6004e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
+            font-family: 'Arial', sans-serif;
         }
         
-        /* 开场动画容器 */
-        .intro {
+        .love-text {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(45deg, #ff66b3, #ff3385, #ff0066);
-            z-index: 100;
-            animation: introFadeOut 4s forwards;
-        }
-        
-        @keyframes introFadeOut {
-            0%, 70% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-        
-        .intro-title {
-            font-size: 4rem;
-            font-family: 'Ma Shan Zheng', cursive;
-            color: white;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-            transform: scale(0.8);
-            animation: introScale 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        
-        @keyframes introScale {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-        
-        .intro-hearts {
-            display: flex;
-            gap: 20px;
-            animation: introHearts 2s infinite alternate;
-        }
-        
-        @keyframes introHearts {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); }
-        }
-        
-        .intro-heart {
-            font-size: 4rem;
-            animation: heartbeat 1.2s infinite;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
-        }
-        
-        /* 主内容区域 */
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            padding: 40px;
-            text-align: center;
-            z-index: 10;
-            opacity: 0;
-            animation: contentFadeIn 2s 3.5s forwards;
-            transform-style: preserve-3d;
-        }
-        
-        @keyframes contentFadeIn {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        .title {
-            font-size: 3.5rem;
-            margin-bottom: 2rem;
-            font-family: 'Ma Shan Zheng', cursive;
-            color: #b30047;
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-            animation: titleFloat 6s infinite ease-in-out;
-        }
-        
-        @keyframes titleFloat {
-            0%, 100% { transform: translateY(0) rotate(1deg); }
-            50% { transform: translateY(-15px) rotate(-1deg); }
-        }
-        
-        .message-box {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 25px;
-            padding: 40px;
-            margin: 20px 0;
-            box-shadow: 0 15px 35px rgba(179, 0, 71, 0.2);
-            backdrop-filter: blur(8px);
-            border: 3px solid rgba(255, 255, 255, 0.5);
-            transform: rotateX(5deg) rotateY(5deg);
-            transition: transform 0.5s;
-        }
-        
-        .message-box:hover {
-            transform: rotateX(0) rotateY(0);
-        }
-        
-        .message {
-            font-size: 1.8rem;
-            line-height: 1.8;
-            margin: 1.5rem 0;
-            font-weight: bold;
-            animation: messageAppear 1s forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        @keyframes messageAppear {
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        .signature {
-            font-size: 2.2rem;
-            font-family: 'Ma Shan Zheng', cursive;
-            color: #e6005c;
-            margin-top: 2rem;
-            display: inline-block;
-            padding: 10px 30px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 50px;
-            animation: signaturePulse 3s infinite;
-        }
-        
-        @keyframes signaturePulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(230, 0, 92, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(230, 0, 92, 0.6); }
-        }
-        
-        /* 漂浮元素样式 */
-        .floating-element {
-            position: absolute;
-            font-size: 2rem;
+            font-size: 5vw;
+            color: #ff66b3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             white-space: nowrap;
-            opacity: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            animation-duration: 20s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
+            animation: float 15s linear infinite;
         }
         
-        .floating-text {
-            font-weight: bold;
-            font-size: 1.8rem;
-            font-family: 'Ma Shan Zheng', cursive;
-            animation: textFloat 1.5s infinite alternate;
-        }
-        
-        .heart-icon {
-            font-size: 2.5rem;
-            animation: floatHeart 3s infinite ease-in-out;
-        }
-        
-        /* 动画定义 */
-        @keyframes float-left-right {
-            0% { transform: translateX(-120%); }
-            100% { transform: translateX(120vw); }
-        }
-        
-        @keyframes float-right-left {
-            0% { transform: translateX(120%); }
-            100% { transform: translateX(-120vw); }
-        }
-        
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.2); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes textFloat {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-15px); }
-        }
-        
-        @keyframes floatHeart {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-        }
-        
-        /* 结束动画 */
-        .fireworks {
+        .heart {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            z-index: 5;
+            animation: float 20s linear infinite;
+            opacity: 0.8;
         }
         
-        /* 响应式调整 */
-        @media (max-width: 768px) {
-            .title { font-size: 2.5rem; }
-            .message { font-size: 1.4rem; }
-            .signature { font-size: 1.8rem; }
-            .intro-title { font-size: 2.8rem; }
+        @keyframes float {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
         }
     </style>
 </head>
 <body>
-    <!-- 开场动画 -->
-    <div class="intro">
-        <div class="intro-title">给帆帆的专属告白</div>
-        <div class="intro-hearts">
-            <div class="intro-heart">❤️</div>
-            <div class="intro-heart">🧡</div>
-            <div class="intro-heart">💛</div>
-            <div class="intro-heart">💚</div>
-            <div class="intro-heart">💙</div>
-        </div>
-    </div>
-    
-    <!-- 主内容区域 -->
-    <div class="container">
-        <h1 class="title">❤️ 给帆帆的告白信 ❤️</h1>
-        
-        <div class="message-box">
-            <p class="message" style="animation-delay: 0.5s">帆帆，从遇见你的那天起，我的世界变得不同</p>
-            <p class="message" style="animation-delay: 1s">你的笑容像阳光一样温暖我的心房</p>
-            <p class="message" style="animation-delay: 1.5s">和你在一起的每一刻都让我感到无比幸福</p>
-            <p class="message" style="animation-delay: 2s">我想牵着你的手，走过每一个春夏秋冬</p>
-            <p class="message" style="animation-delay: 2.5s">你是我生命中最美好的奇迹</p>
-            <p class="message" style="animation-delay: 3s">我会永远珍惜你、爱护你、守护你</p>
-            <p class="message" style="animation-delay: 3.5s">因为在我心中，你是无可替代的唯一</p>
-            
-            <div class="signature">永远爱你的我 ❤️</div>
-        </div>
-    </div>
-    
-    <!-- 漂浮元素将由JavaScript生成 -->
-    
     <script>
-        // 心形符号
-        const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜', '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '❣️', '🩷', '🩵'];
-        
-        // 表白话语
-        const messages = [
-            "我最爱帆帆了", 
-            "帆帆最可爱", 
-            "帆帆是我的唯一",
-            "帆帆是我的全世界",
-            "帆帆的笑容照亮我的人生",
-            "每一天都想见到帆帆",
-            "帆帆让我成为更好的人",
-            "我会永远守护帆帆",
-            "帆帆是我生命的意义",
-            "爱你胜过千言万语",
-            "你是我心中的永恒",
-            "愿与你携手共度余生",
-            "你的眼睛像星辰般美丽",
-            "你的声音是我最美的旋律",
-            "与你在一起的每一秒都珍贵"
-        ];
-        
-        // 字体列表
-        const fonts = [
-            "'Ma Shan Zheng', cursive",
-            "'ZCOOL QingKe HuangYou', sans-serif",
-            "Arial Rounded MT Bold, sans-serif",
-            "Comic Sans MS, cursive",
-            "Verdana, sans-serif"
-        ];
-        
-        // 创建漂浮元素
-        function createFloatingElements() {
-            const container = document.body;
-            
-            // 创建漂浮元素
-            for (let i = 0; i < 50; i++) {
-                const element = document.createElement('div');
-                element.classList.add('floating-element');
-                
-                // 随机选择是文字还是心形
-                if (Math.random() > 0.4) {
-                    element.classList.add('floating-text');
-                    element.textContent = messages[Math.floor(Math.random() * messages.length)];
-                    element.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
-                    element.style.fontSize = (Math.random() * 10 + 18) + 'px';
-                } else {
-                    element.classList.add('heart-icon');
-                    element.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-                }
-                
-                // 随机颜色
-                const hue = Math.floor(Math.random() * 360);
-                element.style.color = `hsl(${hue}, 80%, 60%)`;
-                
-                // 随机位置
-                element.style.top = Math.random() * 100 + 'vh';
-                
-                // 随机选择动画方向
-                const direction = Math.random() > 0.5 ? 'float-left-right' : 'float-right-left';
-                element.style.animationName = direction;
-                
-                // 随机动画时间
-                const duration = Math.random() * 15 + 15;
-                element.style.animationDuration = duration + 's';
-                
-                // 随机延迟
-                element.style.animationDelay = (Math.random() * 10) + 's';
-                
-                // 随机不透明度
-                element.style.opacity = Math.random() * 0.5 + 0.5;
-                
-                container.appendChild(element);
-            }
+        // 创建多个"我最爱帆帆了"文字
+        const texts = ["我最爱帆帆了", "帆帆最可爱", "帆帆是我的唯一"];
+        for (let i = 0; i < 15; i++) {
+            const text = document.createElement("div");
+            text.className = "love-text";
+            text.textContent = texts[i % texts.length];
+            text.style.top = Math.random() * 80 + 10 + 'vh';
+            text.style.left = Math.random() * 100 + 'vw';
+            text.style.fontSize = (Math.random() * 3 + 2) + 'vw';
+            text.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            text.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(text);
         }
-        
-        // 创建烟花效果
-        function createFireworks() {
-            const container = document.body;
-            const colors = ['#ff0066', '#ff3399', '#ff66cc', '#ff99ff', '#ffccff'];
-            
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    for (let j = 0; j < 50; j++) {
-                        const firework = document.createElement('div');
-                        firework.classList.add('fireworks');
-                        
-                        // 随机位置
-                        const x = 10 + Math.random() * 80;
-                        const y = 10 + Math.random() * 80;
-                        firework.style.left = x + 'vw';
-                        firework.style.top = y + 'vh';
-                        
-                        // 随机颜色
-                        firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                        
-                        // 随机大小
-                        const size = Math.random() * 8 + 2;
-                        firework.style.width = size + 'px';
-                        firework.style.height = size + 'px';
-                        
-                        // 动画
-                        firework.style.animation = `fireworkExplode ${Math.random() * 2 + 1}s forwards`;
-                        const style = document.createElement('style');
-                        style.innerHTML = `
-                            @keyframes fireworkExplode {
-                                0% { 
-                                    transform: translate(0, 0);
-                                    opacity: 1;
-                                    box-shadow: 0 0 0 rgba(255, 0, 102, 0.5);
-                                }
-                                100% { 
-                                    transform: translate(${(Math.random() - 0.5) * 200}px, ${(Math.random() - 0.5) * 200}px);
-                                    opacity: 0;
-                                    box-shadow: 0 0 20px rgba(255, 0, 102, 0);
-                                }
-                            }
-                        `;
-                        document.head.appendChild(style);
-                        
-                        container.appendChild(firework);
-                        
-                        // 移除元素
-                        setTimeout(() => {
-                            firework.remove();
-                        }, 2000);
-                    }
-                }, i * 500);
-            }
+
+        // 创建心形图片
+        for (let i = 0; i < 10; i++) {
+            const heart = document.createElement("img");
+            heart.className = "heart";
+            heart.src = "heart.png";
+            heart.style.width = (Math.random() * 50 + 30) + 'px';
+            heart.style.top = Math.random() * 80 + 10 + 'vh';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 15 + 15) + 's';
+            heart.style.animationDelay = Math.random() * 10 + 's';
+            document.body.appendChild(heart);
         }
-        
-        // 页面加载完成后创建漂浮元素
-        window.addEventListener('DOMContentLoaded', () => {
-            createFloatingElements();
-            
-            // 在内容显示后创建烟花
-            setTimeout(() => {
-                createFireworks();
-                
-                // 每10秒创建一次烟花
-                setInterval(createFireworks, 10000);
-            }, 5000);
-            
-            // 添加鼠标移动效果
-            document.addEventListener('mousemove', (e) => {
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                document.querySelector('.message-box').style.transform = 
-                    `rotateX(${5 - y * 10}deg) rotateY(${5 + x * 10}deg)`;
-            });
-        });
     </script>
 </body>
 </html>
