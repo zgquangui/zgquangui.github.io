@@ -3,61 +3,197 @@
 <head>
     <title>给帆帆的告白</title>
     <style>
+        :root {
+            --fade-dark-duration: 800ms;
+            --fade-light-duration: 1200ms;
+            --bg-change-interval: 10s;
+        }
+        
         body {
-            background-color: #ffe6f2;
+            background-size: cover;
+            background-position: center;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
+            position: relative;
+            margin: 0;
+            height: 100vh;
+        }
+        
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity var(--fade-dark-duration) cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .love-text {
             position: absolute;
             font-size: 5vw;
             color: #ff66b3;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             white-space: nowrap;
             animation: float 15s linear infinite;
+            z-index: 1;
         }
         
         .heart {
             position: absolute;
             animation: float 20s linear infinite;
             opacity: 0.8;
+            z-index: 1;
         }
         
         @keyframes float {
             0% { transform: translateX(-100px); }
             100% { transform: translateX(calc(100vw + 100px)); }
         }
+        
+        #music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        #music-player button {
+            background: #ff66b3;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        #music-player button:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
+    <div class="bg-overlay" id="bgOverlay"></div>
+    
+    <div id="music-player">
+        <audio id="bgMusic" crossorigin="anonymous"></audio>
+        <button onclick="toggleMusic()">
+            ♫ 播放VIP音乐
+        </button>
+    </div>
+
     <script>
-        // 创建多个"我最爱帆帆了"文字
-        const texts = ["我最爱帆帆了", "帆帆最可爱", "帆帆是我的唯一"];
-        for (let i = 0; i < 15; i++) {
-            const text = document.createElement("div");
-            text.className = "love-text";
-            text.textContent = texts[i % texts.length];
-            text.style.top = Math.random() * 80 + 10 + 'vh';
-            text.style.left = Math.random() * 100 + 'vw';
-            text.style.fontSize = (Math.random() * 3 + 2) + 'vw';
-            text.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            text.style.animationDelay = Math.random() * 5 + 's';
-            document.body.appendChild(text);
+        // 背景图片配置
+        const bgImages = [
+            'images/bg1.webp',
+            'images/bg2.webp',
+            'images/bg3.webp',
+            'images/bg4.webp',
+            'images/bg5.webp'
+        ];
+        
+        // 网易云VIP歌曲配置
+        const vipMusic = {
+            songIds: [1824045033, 1842025914, 1330348068],
+            currentSong: 0,
+            isPlaying: false
+        };
+
+        // 预加载系统
+        function preloadResources() {
+            // 预加载图片
+            bgImages.forEach(img => new Image().src = img);
+            
+            // 预加载第一首音乐
+            new Audio().src = `https://music.163.com/song/media/outer/url?id=${vipMusic.songIds[0]}.mp3`;
         }
 
-        // 创建心形图片
-        for (let i = 0; i < 10; i++) {
-            const heart = document.createElement("img");
-            heart.className = "heart";
-            heart.src = "heart.png";
-            heart.style.width = (Math.random() * 50 + 30) + 'px';
-            heart.style.top = Math.random() * 80 + 10 + 'vh';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 15 + 15) + 's';
-            heart.style.animationDelay = Math.random() * 10 + 's';
-            document.body.appendChild(heart);
+        // 智能背景切换
+        let currentBg = null;
+        function setRandomBg() {
+            const overlay = document.getElementById('bgOverlay');
+            
+            // 渐暗阶段
+            overlay.style.opacity = 1;
+            
+            setTimeout(() => {
+                // 随机选择新背景（不重复）
+                let nextBg;
+                do {
+                    nextBg = bgImages[Math.floor(Math.random() * bgImages.length)];
+                } while (nextBg === currentBg && bgImages.length > 1);
+                
+                currentBg = nextBg;
+                document.body.style.backgroundImage = `url('${nextBg}')`;
+                
+                // 渐亮阶段
+                setTimeout(() => {
+                    overlay.style.opacity = 0;
+                }, 300);
+            }, 800);
         }
+
+        // 音乐控制系统
+        function toggleMusic() {
+            const player = document.getElementById('bgMusic');
+            const btn = document.querySelector('#music-player button');
+            
+            if (!vipMusic.isPlaying) {
+                player.src = `https://music.163.com/song/media/outer/url?id=${vipMusic.songIds[vipMusic.currentSong]}.mp3`;
+                player.play();
+                btn.textContent = '♫ 播放中...';
+                vipMusic.isPlaying = true;
+            } else {
+                player.pause();
+                btn.textContent = '♫ 继续播放';
+                vipMusic.isPlaying = false;
+            }
+        }
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            preloadResources();
+            setRandomBg();
+            setInterval(setRandomBg, 10000);  // 每10秒切换背景
+            
+            // 音乐结束自动切歌
+            document.getElementById('bgMusic').addEventListener('ended', () => {
+                vipMusic.currentSong = (vipMusic.currentSong + 1) % vipMusic.songIds.length;
+                document.querySelector('#music-player button').textContent = '♫ 切换中...';
+                setTimeout(() => toggleMusic(), 500);
+            });
+
+            // 创建漂浮元素
+            const texts = ["我最爱帆帆了", "帆帆最可爱", "帆帆是我的唯一"];
+            for (let i = 0; i < 15; i++) {
+                const text = document.createElement("div");
+                text.className = "love-text";
+                text.textContent = texts[i % texts.length];
+                text.style.top = Math.random() * 80 + 10 + 'vh';
+                text.style.left = Math.random() * 100 + 'vw';
+                text.style.fontSize = (Math.random() * 3 + 2) + 'vw';
+                text.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                text.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(text);
+            }
+
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement("img");
+                heart.className = "heart";
+                heart.src = "images/heart.png";
+                heart.style.width = (Math.random() * 50 + 30) + 'px';
+                heart.style.top = Math.random() * 80 + 10 + 'vh';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                document.body.appendChild(heart);
+            }
+        });
     </script>
 </body>
 </html>
