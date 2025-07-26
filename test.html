@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>效果对比测试</title>
+    <style>
+        .compare {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+        .old-version {
+            background: pink;
+            flex: 1;
+        }
+        .new-version {
+            flex: 1;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="compare">
+        <div class="old-version">旧版粉色背景</div>
+        <div class="new-version" id="newBg"></div>
+    </div>
+    <script>
+        document.getElementById('newBg').style.backgroundImage = 
+            'url(images/' + bgImages[Math.floor(Math.random() * bgImages.length)] + ')';
+    </script>
+</body>
+</html>
