@@ -2,6 +2,14 @@
 <html>
 <head>
     <title>给帆帆的告白</title>
+    <script>
+        // 强制路径标准化
+        const BASE_PATH = '/storage/emulated/0/Download/zgquangui.github.io/';
+        if (!window.location.href.startsWith('file://')) {
+            alert('⚠️ 请通过 file:// 协议本地访问');
+            window.location.href = `file://${BASE_PATH}index.html`;
+        }
+    </script>
     <style>
         :root {
             --fade-dark-duration: 800ms;
@@ -80,38 +88,38 @@
 <body>
     <div class="bg-overlay" id="bgOverlay"></div>
     
-    <div id="music-player">
-        <audio id="bgMusic" crossorigin="anonymous"></audio>
-        <button onclick="toggleMusic()">
-            ♫ 播放VIP音乐
+<!-- 音乐控制 -->
+    <div id="music-player" style="position:fixed; bottom:20px; right:20px;">
+        <button onclick="musicPlayer.paused ? musicPlayer.play() : musicPlayer.pause()">
+            ♫ 播放音乐
         </button>
     </div>
 
     <script>
-        // 背景图片配置
+// 修复版核心代码
         const bgImages = [
-            'images/bg1.webp',
-            'images/bg2.webp',
-            'images/bg3.webp',
-            'images/bg4.webp',
-            'images/bg5.webp'
-        ];
-        
-        // 网易云VIP歌曲配置
-        const vipMusic = {
-            songIds: [1824045033, 1842025914, 1330348068],
-            currentSong: 0,
-            isPlaying: false
-        };
+            `${BASE_PATH}images/romantic_bg1.jpg`,
+            `${BASE_PATH}images/romantic_bg2.jpg`,
+            `${BASE_PATH}images/cute_bg1.jpg`,
+            `${BASE_PATH}images/cute_bg2.jpg`
+        ].filter(path => {
+            const img = new Image();
+            img.src = path;
+            return img.complete || (img.onload = () => true);
+        });
 
-        // 预加载系统
-        function preloadResources() {
-            // 预加载图片
-            bgImages.forEach(img => new Image().src = img);
-            
-            // 预加载第一首音乐
-            new Audio().src = `https://music.163.com/song/media/outer/url?id=${vipMusic.songIds[0]}.mp3`;
-        }
+        // 确保背景存在
+        document.body.style.backgroundImage = bgImages.length ? 
+            `url('${bgImages[0]}')` : 
+            "linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)";
+
+        // 音乐播放器
+        const musicPlayer = new Audio(`${BASE_PATH}assets/love_music.mp3`);
+        musicPlayer.volume = 0.8;
+        musicPlayer.addEventListener('error', (e) => {
+            console.error('音乐加载失败:', e);
+            document.getElementById('music-player').style.display = 'none';
+        });
 
         // 智能背景切换
         let currentBg = null;
@@ -155,44 +163,13 @@
             }
         }
 
-        // 初始化
-        window.addEventListener('DOMContentLoaded', () => {
-            preloadResources();
-            setRandomBg();
-            setInterval(setRandomBg, 10000);  // 每10秒切换背景
-            
-            // 音乐结束自动切歌
-            document.getElementById('bgMusic').addEventListener('ended', () => {
-                vipMusic.currentSong = (vipMusic.currentSong + 1) % vipMusic.songIds.length;
-                document.querySelector('#music-player button').textContent = '♫ 切换中...';
-                setTimeout(() => toggleMusic(), 500);
-            });
-
-            // 创建漂浮元素
-            const texts = ["我最爱帆帆了", "帆帆最可爱", "帆帆是我的唯一"];
-            for (let i = 0; i < 15; i++) {
-                const text = document.createElement("div");
-                text.className = "love-text";
-                text.textContent = texts[i % texts.length];
-                text.style.top = Math.random() * 80 + 10 + 'vh';
-                text.style.left = Math.random() * 100 + 'vw';
-                text.style.fontSize = (Math.random() * 3 + 2) + 'vw';
-                text.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                text.style.animationDelay = Math.random() * 5 + 's';
-                document.body.appendChild(text);
-            }
-
-            for (let i = 0; i < 10; i++) {
-                const heart = document.createElement("img");
-                heart.className = "heart";
-                heart.src = "images/heart.png";
-                heart.style.width = (Math.random() * 50 + 30) + 'px';
-                heart.style.top = Math.random() * 80 + 10 + 'vh';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 15 + 15) + 's';
-                heart.style.animationDelay = Math.random() * 10 + 's';
-                document.body.appendChild(heart);
-            }
+// 漂浮元素创建（原有代码）
+        const texts = ["我最爱帆帆了", "帆帆最可爱"];
+        texts.forEach((text, i) => {
+            const el = document.createElement("div");
+            el.className = "love-text";
+            el.textContent = text;
+            document.body.appendChild(el);
         });
     </script>
 </body>
